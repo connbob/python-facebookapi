@@ -13,7 +13,7 @@ async def main(loop):
     async with aiohttp.ClientSession(loop=loop) as session:
         postid = ""  #paste the postID here
         accesskey = "" # Paste your facebook accesskey here
-        html = await session.get('https://graph.facebook.com/v2.8/{}/?fields=reactions.type(LIKE).limit(0).summary(total_count).as(reactions_like),reactions.type(LOVE).limit(0).summary(total_count).as(reactions_love),reactions.type(HAHA).limit(0).summary(total_count).as(reactions_haha),reactions.type(WOW).limit(0).summary(total_count).as(reactions_wow),reactions.type(SAD).limit(0).summary(total_count).as(reactions_sad),reactions.type(ANGRY).limit(0).summary(total_count).as(reactions_angry)&access_token={}'.format(postid, accesskey))
+        html = await session.get('https://graph.facebook.com/v2.8/{}/?fields=reactions.type(LIKE).limit(0).summary(total_count).as(reactions_like),reactions.type(LOVE).limit(0).summary(total_count).as(reactions_love),reactions.type(HAHA).limit(0).summary(total_count).as(reactions_haha),reactions.type(WOW).limit(0).summary(total_count).as(reactions_wow),reactions.type(SAD).limit(0).summary(total_count).as(reactions_sad),reactions.type(ANGRY).limit(0).summary(total_count).as(reactions_angry),reactions.type(NONE).limit(0).summary(total_count).as(reactions_all)&access_token={}'.format(postid, accesskey))
         data = await html.json()
         like = open("reactions/like.txt","w+")
         like.write(str(data["reactions_like"]["summary"]["total_count"]))
@@ -33,6 +33,9 @@ async def main(loop):
         angry = open("reactions/angry.txt","w+")
         angry.write(str(data["reactions_angry"]["summary"]["total_count"]))
         angry.close()
+        all = open("reactions/all.txt","w+")
+        all.write(str(data["reactions_all"]["summary"]["total_count"]))
+        all.close()
 x = 0
 speed = 3 #change to refresh time for count in seconds.
 while x < 10:
