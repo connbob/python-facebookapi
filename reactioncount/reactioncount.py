@@ -1,3 +1,5 @@
+#2018 update - horrific code tbh
+
 import aiohttp
 import asyncio
 import async_timeout
